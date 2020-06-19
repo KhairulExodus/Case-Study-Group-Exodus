@@ -1,4 +1,6 @@
 const readline = require('readline');
+const { exit } = require('process');
+const { array } = require('prop-types');
 
 const inp = readline.createInterface({
     input: process.stdin,
@@ -15,47 +17,60 @@ REQUIREMENTS
     4. Item is stored based on house number.
     5. Each storage can store a maximum of 5 parcels.
 */
+console.log("\n***********************************************************************");
+console.log("Welcome to Parcel Management System.");
+console.log("***********************************************************************");
 
-
-inp.question('Enter house number    :  ', (s) => { //INPUT HOUSE NUMBER (30  SLOTS= 30 HOUSES)
-
-    inp.question('Enter parcel          :  ', (p) => { //INPUT parcel (maximum is 5 parcel per slot)
-
-        if ((p>5)||(s>30)){
-            console.log("Invalid input. Maximum number of parcel is 5 only la"); 
+inp.question('Enter house number          :  ', (s) => { //INPUT HOUSE NUMBER (30  SLOTS= 30 HOUSES)
+    if (s>30){
+        console.log("\n***********************************************************************");
+        console.log("Invalid input. Maximum house num is 30");
+        console.log("***********************************************************************");
+        console.log("\nThank you for using Parcel Management System.\n")
+        inp.close();
+    }
+    else{
+        inp.question('Enter number of parcel      :  ', (p) => { //INPUT parcel (maximum is 5 parcel per slot)
+        
+        if (p>5){
+            console.log("\n***********************************************************************");
+            console.log("Invalid input. Maximum parcel is only 5");
+            console.log("***********************************************************************");
          }
-
+  
         else{
-            console.log("___________________________________________________");
+            var item=[]; //var item;
+   
+            for(let i=0;i<p;i++){
+                /*inp.question('Enter item    :'  ,(a) =>{
+                    item.push(a);
+                });
+                return item;*/
+                item.push("item");
+            }
+            
             //get system date
             let today = new Date();
-            let dd = today.getDate();
-            let mm = today.getMonth()+1;
-            const yyyy = today.getFullYear();
-            let hr = today.getHours();
-            let min = today.getMinutes();
-            let sec = today.getSeconds();
-        
-            let enter  = new Date(today); // starting date
-            //let end = new Date(new Date(dateTime).getTime() + 2*24*60*60* 1000); // ending date=starting date + 2 days
-            var date2 = new Date();
-            date2.setDate(date2.getDate()+2);
-            let end = date2;
-            let slot=s; // house number/storage slots
-            let parcel=p; //parcel
-  
-             //check 
-             console.log("Parcel delivered on         : " +enter); //print starting date&time
-             console.log("Parcel will be returned on  : " +end); //print starting date&time
-             console.log("House Number : " +slot); //print slot 
-             console.log("Parcel input : " +parcel); //print parcel 
-             console.log("======================================================");
- 
-             let storage = [[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29], [0,1,2,3,4]]; // storage array = [[slot number],[0(starting),1(ending)]] (size of array =[30][2])
-             storage[slot-1][0]=enter; // [slot number][starting time&date]
-             storage[slot-1][1]=end;   //slot number][ending time&date)]
+            let enter  = new Date(today); //get starting date
+            var end = new Date(); 
+            end.setDate(end.getDate()+2); //get return date
+            let slot = s; // house number/storage slots
+            let parcel = p; //parcel
 
-        }      
-              inp.close();
+            //check
+            console.log("======================================================"); 
+            console.log("Parcel delivered on         : " +enter); //print starting date&time
+            console.log("Parcel will be returned on  : " +end); //print return date&time
+            console.log("House Number                : " +slot); //print slot 
+            console.log("Parcel input                : " +parcel); //print parcel amount
+            console.log("Item(s)                     : " +item); //print item 
+            console.log("======================================================");
+            console.log(item);
+        }
+        
+        console.log("\nThank you for using Parcel Management System.\n")
+        inp.close();
+
         });
- });
+    }
+});
